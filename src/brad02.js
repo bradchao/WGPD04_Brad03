@@ -22,14 +22,55 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var res = {
-    HelloWorld_png : "res/HelloWorld.png",
-    Brick_png : "res/brick.png",
-    Bullet_png : "res/bullet.png",
-    Ball_png : "res/ball.png",
-};
 
-var g_resources = [];
-for (var i in res) {
-    g_resources.push(res[i]);
-}
+var Brad02Layer = cc.Layer.extend({
+    sprite:null,
+    isShoot: false,
+    ctor:function () {
+        //////////////////////////////
+        // 1. super init first
+        this._super();
+
+        this.sprite = new cc.Sprite(res.HelloWorld_png);
+        this.sprite.attr({
+            x: 0,
+            y: 0
+        });
+        this.addChild(this.sprite, 0);
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseDown: function (e) {
+                var target = e.getCurrentTarget();
+                target.isShoot = true;
+            },
+
+            onMouseUp: function (e) {
+                var target = e.getCurrentTarget();
+                target.isShoot = false;
+            },
+        }, this);
+
+        this.scheduleUpdate();
+
+        return true;
+    },
+
+    update: function () {
+        if (this.isShoot){
+            this.sprite.x += 16;
+            this.sprite.y += 16;
+        }
+    }
+
+
+});
+
+var Brad02Scene = cc.Scene.extend({
+    onEnter:function () {
+        this._super();
+        var layer = new Brad02Layer();
+        this.addChild(layer);
+    }
+});
+

@@ -31,12 +31,21 @@ var Brad01Layer = cc.Layer.extend({
     ctor:function () {
         this._super();
 
+
+        this.sprite2 = new cc.Sprite(res.HelloWorld_png);
+        this.sprite2.attr({
+            x: cc.winSize.width *3 /4,
+            y: cc.winSize.height/2
+        });
+        this.addChild(this.sprite2, 1);
+
+
         this.sprite1 = new cc.Sprite(res.HelloWorld_png);
         this.sprite1.attr({
             x: cc.winSize.width *1 /4,
             y: cc.winSize.height/2
         });
-        this.addChild(this.sprite1);
+        this.addChild(this.sprite1, 5);
         this.sprite1Rect = cc.rect(
             this.sprite1.x - this.sprite1.width/2,
             this.sprite1.y - this.sprite1.height/2,
@@ -49,6 +58,7 @@ var Brad01Layer = cc.Layer.extend({
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseDown: function (e) {
+                cc.log("debug1");
                 var target = e.getCurrentTarget();
                 var parent = target.getParent();
 
@@ -72,14 +82,19 @@ var Brad01Layer = cc.Layer.extend({
         }, this.sprite1);
 
 
-        this.sprite2 = new cc.Sprite(res.HelloWorld_png);
-        this.sprite2.attr({
-            x: cc.winSize.width *3 /4,
-            y: cc.winSize.height/2
-        });
-        this.addChild(this.sprite2);
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseDown: function (e) {
+                cc.log("debug2");
+            }
+        }, this.sprite2);
+
+
 
         this.setupMouse();
+
+
 
         return true;
     },
@@ -88,6 +103,8 @@ var Brad01Layer = cc.Layer.extend({
         cc.eventManager.addListener({
             event: cc.EventListener.MOUSE,
             onMouseDown: function (e) {
+                cc.log("debug3");
+
                 var target = e.getCurrentTarget();
                 var ex = e.getLocationX(), ey = e.getLocationY();
                 var p = new cc.Point(ex, ey);
@@ -95,14 +112,12 @@ var Brad01Layer = cc.Layer.extend({
 
                 if ( cc.rectContainsPoint(target.sprite1Rect, p)){
                     target.isDrag = true;
-                    cc.log("drag");
                 }
 
             },
             onMouseMove: function (e) {
                 var target = e.getCurrentTarget();
                 if (target.isDrag){
-                    cc.log("move");
 
                     target.sprite1.x = e.getLocationX();
                     target.sprite1.y = e.getLocationY();
@@ -120,7 +135,6 @@ var Brad01Layer = cc.Layer.extend({
                 var target = e.getCurrentTarget();
 
                 target.isDrag = false;
-                cc.log("up");
 
 
             },
