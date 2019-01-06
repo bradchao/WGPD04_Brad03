@@ -46,10 +46,24 @@ var Brad04Layer = cc.Layer.extend({
         if (this.ball.x + this.ball.width/2 >= cc.winSize.width ||
             this.ball.x - this.ball.width/2 <= 0){
             this.dx *= -1;
+
+            if (this.dx * this.dy > 0){
+                this.ball.runAction(cc.rotateBy(0.5, -90));
+            }else{
+                this.ball.runAction(cc.rotateBy(0.5, 90));
+            }
+
+
         }
         if (this.ball.y + this.ball.height/2 >= cc.winSize.height ||
             this.ball.y - this.ball.height/2 <= 0){
             this.dy *= -1;
+
+            if (this.dx * this.dy < 0){
+                this.ball.runAction(cc.rotateBy(0.5, -90));
+            }else{
+                this.ball.runAction(cc.rotateBy(0.5, 90));
+            }
         }
         this.ball.x += this.dx;
         this.ball.y += this.dy;
