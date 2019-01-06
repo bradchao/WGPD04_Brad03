@@ -27,6 +27,9 @@ var res = {
     Brick_png : "res/brick.png",
     Bullet_png : "res/bullet.png",
     Ball_png : "res/ball.png",
+    Bg1_png : "res/bg1.png",
+    Man_png : "res/man.png",
+    Man_plist : "res/man.plist",
 };
 
 var g_resources = [];
