@@ -30,6 +30,8 @@ var res = {
     Bg1_png : "res/bg1.png",
     Man_png : "res/man.png",
     Man_plist : "res/man.plist",
+    s1b : "res/s1_0025.png",
+    btn : "res/button.png",
 };
 
 var g_resources = [];
